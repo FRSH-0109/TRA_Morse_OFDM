@@ -13,4 +13,6 @@ y_binary_Morse = textToBinaryMorse(text);
 stairs(y_binary_Morse)
 ylim([-0.5, 1.5])
 
+ofdm_signal = OFDM_Transmitter(y_binary_Morse, 2, 10);
+
 text_rev = binaryMorseToText(y_binary_Morse)
