@@ -22,11 +22,13 @@ im_carrier = A.*cos(2*pi*(1/fc)*(1:length(ifft_im)));
 modulated_re = ifft_re.*re_carrier;
 modulated_im = ifft_im.*im_carrier;
 
-% Wykres do testów
+%Wykres do testów
 % figure(1);
 % plot(1:length(modulated_re), modulated_re);
 % hold on;
 % plot(1:length(ifft_re), ifft_re);
+% hold on;
+% plot(1:length(re_carrier), re_carrier);
 % legend("modulated re", "ifft re");
 % 
 % figure(2);

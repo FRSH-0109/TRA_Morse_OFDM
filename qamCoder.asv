@@ -1,0 +1,36 @@
+function [outputVector] = qamCoder(input_array, n)
+
+nTmp = 1;
+basketRe = [];
+basketIm = [];
+basketIdx = 1;
+for i=1:2:length(input_array)
+    
+    if(nTmp > n)
+        nTmp = 1;
+    end
+    
+    i = input_array(i);
+    ii = 0;
+    if(i+1 <= length(input_array))
+        ii =input_array(i+1);
+    end
+
+    if(i == 1 && ii == 1)
+        basketRe(nTmp, basketIdx) = 1;
+        basketIm(nTmp, basketIdx) = 1i;
+    elseif (i == 1 && ii == 1)
+        basketRe(nTmp, basketIdx) = 1;
+        basketIm(nTmp, basketIdx) = 1i;
+    end
+        
+        n = n+1;
+end
+
+
+
+
+outputArg1 = [];
+
+end
+
