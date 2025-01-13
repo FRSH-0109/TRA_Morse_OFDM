@@ -1,7 +1,7 @@
 clear;
 clc;
 
-text = 'Aasdsa'
+text = 'Aasdsa Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.'
 
 % OFFTOP
 % kod Morse'a to 1 dla kropki, 111 dla kreski, 0 pomiędzy nimi, 000
@@ -33,6 +33,11 @@ im_qamSignal = imag(qamSignal);
 % ylim([-0.5, 1.5])
 
 ofdm_signal = OFDM_Transmitter(y_binary_Morse, 8, 2, 10);
+
+% figure;
+% plot(1:length(ofdm_signal), ofdm_signal);
+
+received_binary = OFDM_Receiver(ofdm_signal, 8, 2, 10);
 % Dodanie zakłócenia
 
 % wrzucenie do Receivera

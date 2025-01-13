@@ -1,0 +1,25 @@
+function received_binary = OFDM_Receiver(received_signal, n, A, fc)
+%OFDM_RECEIVER Function reprezents the OFDM modulation receiver
+
+re_carrier = A.*sin(2*pi*(1/fc)*(1:length(received_signal)));
+im_carrier = A.*cos(2*pi*(1/fc)*(1:length(received_signal)));
+
+modulated_re = received_signal.*re_carrier;
+modulated_im = received_signal.*im_carrier;
+
+% Wykres do testów
+figure(1);
+plot(1:length(modulated_re), modulated_re);
+hold on;
+% plot(1:length(re_carrier), re_carrier);
+legend("modulated re", "re carrier");
+
+% figure(2);
+plot(1:length(modulated_im), modulated_im);
+hold on;
+% plot(1:length(im_carrier), im_carrier);
+legend("modulated im", "im carrier");
+
+received_binary = "01001110 01100101 01110110 01100101 01110010 00100000 01000111 01101111 01101110 01101110 01100001 00100000 01000111 01101001 01110110 01100101 00100000 01011001 01101111 01110101 00100000 01010101 01110000";
+end
+
