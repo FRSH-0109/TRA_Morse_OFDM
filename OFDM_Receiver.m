@@ -21,11 +21,11 @@ modulated_im = received_signal.*im_carrier;
 % legend("modulated im", "im carrier");
 
 % Parametry
-n = 20; % do sprawk - 50, 100, 800
+order = 20; % do sprawk - 50, 100, 800
 Wn = 0.25; % do sprawka - 0.025, 0.03, 0.0275
 
 % Zaprojektowanie filtru
-b = fir1(n, Wn);
+b = fir1(order, Wn);
 
 % Wyświetlanie wyników
 
@@ -47,6 +47,12 @@ plot(1:length(modulated_im), modulated_im);
 hold on;
 plot(1:length(im_filtered), im_filtered);
 legend("modulated im", "im filtered");
+
+filtered_signal = complex(re_filtered, im_filtered);
+signal_sizes = [n, round(length(filtered_signal) / n)];
+filtered_frames = reshape(filtered_signal, signal_sizes);
+
+fft_bins = fft(filtered_frames, n, 1);
 
 received_binary = "01001110 01100101 01110110 01100101 01110010 00100000 01000111 01101111 01101110 01101110 01100001 00100000 01000111 01101001 01110110 01100101 00100000 01011001 01101111 01110101 00100000 01010101 01110000";
 end
