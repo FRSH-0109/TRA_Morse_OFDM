@@ -28,7 +28,7 @@ function [outputMorse] = textToBinaryMorse(text)
             binarySymbol = morseToBinary(morseSymbol); % Zamiana na binarną tablicę
             outputMorse = [outputMorse, binarySymbol, 0, 0, 0]; % Dodanie odstępu między literami
         else
-            warning('Znak "%s" nie został znaleziony w mapie Morse`a.', text(i));
+            %warning('Znak "%s" nie został znaleziony w mapie Morse`a.', text(i));
         end
     end
     

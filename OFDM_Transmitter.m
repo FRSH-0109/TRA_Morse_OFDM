@@ -2,6 +2,7 @@ function ofdm_signal = OFDM_Transmitter(input_code, n, A, fc)
 %OFDM_TRANSMITTER Function reprezents the OFDM modulation transmitter
 
 input_bins = qamCoder(input_code, n);
+%disp(input_bins)
 
 ifft_output = ifft(input_bins);
 
@@ -45,6 +46,11 @@ modulated_im = ifft_im.*im_carrier.';
 % end
 
 modulated_combined = modulated_re + modulated_im;
-ofdm_signal = reshape(modulated_combined, [numel(modulated_combined) 1]).';
+
+if width(modulated_combined) > 1
+    ofdm_signal = reshape(modulated_combined, [numel(modulated_combined) 1]).';
+else
+    ofdm_signal = modulated_combined;
+end
 end
 

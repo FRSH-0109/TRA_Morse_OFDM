@@ -65,6 +65,6 @@ function char = morseCodeToChar(morseSymbol, morseCode)
         char = morseCode(morseSymbol);
     else
         char = ''; % Return empty for unrecognized symbols
-        warning('Unrecognized Morse symbol: %s', morseSymbol);
+        %warning('Unrecognized Morse symbol: %s', morseSymbol);
     end
 end
