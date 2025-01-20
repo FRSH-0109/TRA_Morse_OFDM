@@ -5,8 +5,8 @@ idx = 1;
 
 corners = [1+1i, -1+1i, -1-1i, 1-1i];
 
-for h=1:height(baskets_matrix)
-    for w=1:width(baskets_matrix)
+for w=1:width(baskets_matrix)
+    for h=1:height(baskets_matrix)
         z = baskets_matrix(h, w);
         distances = abs(z - corners);
         [~, closest_index] = min(distances); % Find the index of the minimum distance

@@ -2,7 +2,7 @@ clear;
 clc;
 
 % text = 'Aasdsa Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
-text = 'abcd efgh';
+text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 % OFFTOP
 % kod Morse'a to 1 dla kropki, 111 dla kreski, 0 pomiędzy nimi, 000
 % pomiędzy literami i 00000000 pomiędzy słowami (spacja)
@@ -33,12 +33,12 @@ disp(y_binary_Morse)
 % stairs(y_binary_Morse)
 % ylim([-0.5, 1.5])
 
-ofdm_signal = OFDM_Transmitter(y_binary_Morse, 8, 2, 1e3);
+ofdm_signal = OFDM_Transmitter(y_binary_Morse, 8, 1, 1e4);
 
 % figure;
 % plot(1:length(ofdm_signal), ofdm_signal);
 
-received_binary = OFDM_Receiver(ofdm_signal, 8, 2, 1e3);
+received_binary = OFDM_Receiver(ofdm_signal, 8, 1, 1e4);
 %disp(y_binary_Morse)
 %disp(received_binary)
 text_out = binaryMorseToText(received_binary);
