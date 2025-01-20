@@ -1,52 +1,55 @@
-function received_binary = OFDM_Receiver(received_signal, n, A, fc, order, Wn)
+function received_binary = OFDM_Receiver(received_signal, n, A, fc)
 %OFDM_RECEIVER Function reprezents the OFDM modulation receiver
 
-re_carrier = A.*sin(2*pi*(1/fc)*(1:length(received_signal)));
-im_carrier = A.*cos(2*pi*(1/fc)*(1:length(received_signal)));
+re_carrier = A.*sin((2*pi*(1/fc))*(1:length(received_signal)));
+im_carrier = A.*cos((2*pi*(1/fc))*(1:length(received_signal)));
 
 modulated_re = received_signal.*re_carrier;
 modulated_im = received_signal.*im_carrier;
 
 % Wykres do testów
-% figure(1);
-% plot(1:length(modulated_re), modulated_re);
-% hold on;
-% plot(1:length(re_carrier), re_carrier);
-% legend("modulated re", "re carrier");
-% 
-% figure(2);
-% plot(1:length(modulated_im), modulated_im);
-% hold on;
-% plot(1:length(im_carrier), im_carrier);
-% legend("modulated im", "im carrier");
+figure(3);
+plot(1:length(modulated_re), modulated_re);
+hold on;
+plot(1:length(re_carrier), re_carrier);
+legend("modulated re", "re carrier");
+
+figure(4);
+plot(1:length(modulated_im), modulated_im);
+hold on;
+plot(1:length(im_carrier), im_carrier);
+legend("modulated im", "im carrier");
 
 % Parametry
-%order = 1000; % do sprawk - 50, 100, 800
-%Wn = 0.25; % do sprawka - 0.025, 0.03, 0.0275
+order = 10; % do sprawk - 50, 100, 800
+Wn = 0.3; % do sprawka - 0.025, 0.03, 0.0275
 
 % Zaprojektowanie filtru
 b = fir1(order, Wn);
 
 % Wyświetlanie wyników
 
-% figure(3);
-% freqz(b, 1, 1000);
+figure(5);
+freqz(b, 1, 1000);
 
 re_filtered = filter(b, 1, modulated_re);
 im_filtered = filter(b, 1, modulated_im);
 
+% re_filtered = modulated_re;
+% im_filtered = modulated_im;
+
 % Wykres do testów
-% figure(4);
-% plot(1:length(modulated_re), modulated_re);
-% hold on;
-% plot(1:length(re_filtered), re_filtered);
-% legend("modulated re", "re filtered");
-% 
-% figure(5);
-% plot(1:length(modulated_im), modulated_im);
-% hold on;
-% plot(1:length(im_filtered), im_filtered);
-% legend("modulated im", "im filtered");
+figure(6);
+plot(1:length(modulated_re), modulated_re);
+hold on;
+plot(1:length(re_filtered), re_filtered);
+legend("modulated re", "re filtered");
+
+figure(7);
+plot(1:length(modulated_im), modulated_im);
+hold on;
+plot(1:length(im_filtered), im_filtered);
+legend("modulated im", "im filtered");
 
 filtered_signal = complex(re_filtered, im_filtered);
 signal_sizes = [n, round(length(filtered_signal) / n)];
