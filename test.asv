@@ -10,44 +10,20 @@ text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 y_binary_Morse = textToBinaryMorse(text);
 disp(y_binary_Morse)
 
-% qamOutput = qamCoder(y_binary_Morse, 8);
-
-% qamSignal = ifft(qamOutput);
-% 
-% re_qamSignal = real(qamSignal);
-% im_qamSignal = imag(qamSignal);
-
-% plot(qamSignal);
-% for i=1:width(re_qamSignal)
-%     figure;
-%     signal_to_plot = re_qamSignal(:, i);
-%     plot(1:length(signal_to_plot), signal_to_plot);
-% end
-% 
-% for i=1:width(im_qamSignal)
-%     figure;
-%     signal_to_plot = im_qamSignal(:, i);
-%     plot(1:length(signal_to_plot), signal_to_plot);
-% end
-
-% stairs(y_binary_Morse)
-% ylim([-0.5, 1.5])
-
 [ofdm_signal_re, ofdm_signal_im] = OFDM_Transmitter(y_binary_Morse, 8, 1, 1e4);
 
-% figure;
-% plot(1:length(ofdm_signal), ofdm_signal);
 
-received_binary = OFDM_Receiver(ofdm_signal_re, ofdm_signal_im, 8, 1, 1e4);
-binary_cutted = received_binary(1:length(y_binary_Morse));
-received_binary(4) = 0;
-received_binary(12) = 0;
-%disp(y_binary_Morse)
-%disp(received_binary)
+
+% Sztucznie dodane zmiany dla testu calculate_wrong_signs()
+binary_cutted(4) = 0;
+binary_cutted(12) = 0;
+
 text_out = binaryMorseToText(binary_cutted);
 disp(text_out);
-bit_mistake_count = calculate_wrong_signs(received_binary, y_binary_Morse);
-disp(bit_mis)
+
+bit_mistake_count = calculate_wrong_signs(binary_cutted, y_binary_Morse);
+disp(bit_mistake_count);
+
 letter_mistake_count = calculate_wrong_signs(upper(text_out), upper(text));
 disp(letter_mistake_count);
 % Dodanie zakłócenia
