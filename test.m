@@ -2,26 +2,26 @@ clear;
 clc;
 % PARAMETRY TESTOWE
 % Wiadomość do przekazania
-text1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
-text2 = 'We re no strangers to love. You know the rules and so do I. A full commitment s what I m thinkin of. You wouldn t get this from any other guy.';
+% text1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
+% text2 = 'We re no strangers to love. You know the rules and so do I.';
 
-% text1 = 'We re no strangers to love. You know the rules and so do I. A full commitment s what I m thinkin of. You wouldn t get this from any other guy.';
+% text1 = 'We re no strangers to love. You know the rules and so do I.';
 % text2 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
 % 
 % text1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
-% text2 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+% text2 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 % 
-% text1 = 'We re no strangers to love. You know the rules and so do I. A full commitment s what I m thinkin of. You wouldn t get this from any other guy.';
-% text2 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+% text1 = 'We re no strangers to love. You know the rules and so do I.';
+% text2 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 % 
-% text1 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+% text1 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 % text2 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
 % 
-% text1 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-% text2 = 'We re no strangers to love. You know the rules and so do I. A full commitment s what I m thinkin of. You wouldn t get this from any other guy.';
+text1 = 'aaaaaaaaaa$$$aaaaaaaaaaaaaaa!1810?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+text2 = 'We re no strangers to love. You know the rules and so do I.';
 
 % Moc szumu wg SNR
-snr = 40; % w dB
+snr = -10; % w dB
 
 % OFFTOP
 % kod Morse'a to 1 dla kropki, 111 dla kreski, 0 pomiędzy nimi, 000
@@ -46,7 +46,7 @@ y_binary_Morse = [y_binary_Morse_1; y_binary_Morse_2];
 
 % Dodanie zakłócenia
 ofdm_signal = complex(ofdm_signal_re, ofdm_signal_im);
-ofdm_signal_noise = awgn(ofdm_signal, snr, "measured"); % ofdm_signal; % awgn(ofdm_signal, snr, "measured");
+ofdm_signal_noise = ofdm_signal; % awgn(ofdm_signal, snr, "measured"); % awgn(ofdm_signal, snr, "measured");
 signal_noise_re = real(ofdm_signal_noise);
 signal_noise_im = imag(ofdm_signal_noise);
 

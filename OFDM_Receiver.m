@@ -11,6 +11,13 @@ signal_framed = reshape(complex_signal, signal_sizes);
 % FFT koszyków
 fft_bins = fft(signal_framed, n, 1);
 
+scatter(real(fft_bins), imag(fft_bins), 50, [0 0.4470 0.7410], '.');
+xlim([-1.5 1.5]);
+ylim([-1.5 1.5]);
+xlabel("Re");
+ylabel("Im");
+title("Symbole QAM odczytane przez odbiornik.");
+
 % Dekodowanie znaków QAM na kod binarny
 received_binary = qamDecoder(fft_bins);
 

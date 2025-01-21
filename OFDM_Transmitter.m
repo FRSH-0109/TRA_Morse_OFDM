@@ -7,9 +7,6 @@ input_code(2:2:length(input_code)) = input_matrix(2, :);
 
 % Kodowanie sygnału w modulacji 4QAM
 input_bins = qamCoder(input_code, n);
-scatter(real(input_bins), imag(input_bins), '.');
-xlim([-2 2]);
-ylim([-2 2]);
 
 % IFFT zakodowanego sygnału
 ifft_output = ifft(input_bins);
