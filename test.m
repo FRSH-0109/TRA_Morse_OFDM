@@ -2,7 +2,8 @@ clear;
 clc;
 
 % Wiadomość do przekazania
-text = 'Aasdsa Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
+% text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
+text = 'We re no strangers to love. You know the rules and so do I. A full commitment s what I m thinkin of. You wouldn t get this from any other guy.';
 % text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 % OFFTOP
 % kod Morse'a to 1 dla kropki, 111 dla kreski, 0 pomiędzy nimi, 000
@@ -17,7 +18,7 @@ disp(y_binary_Morse)
 
 % Dodanie zakłócenia
 ofdm_signal = complex(ofdm_signal_re, ofdm_signal_im);
-ofdm_signal_noise = awgn(ofdm_signal, 0, "measured");
+ofdm_signal_noise = awgn(ofdm_signal, 40, "measured");
 signal_noise_re = real(ofdm_signal_noise);
 signal_noise_im = imag(ofdm_signal_noise);
 
