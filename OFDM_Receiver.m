@@ -1,4 +1,4 @@
-function received_binary = OFDM_Receiver(received_signal, n, A, fc)
+function received_binary = OFDM_Receiver(received_signal_re, received_signal_im, n, A, fc)
 %OFDM_RECEIVER Function reprezents the OFDM modulation receiver
 
 % re_carrier = A.*sin((2*pi*(1/fc))*(1:length(received_signal)));
@@ -9,9 +9,9 @@ fs = 1e6; % Sampling frequency
 % modulated_re = received_signal.*re_carrier;
 % modulated_im = received_signal.*im_carrier;
 
-[num, dem] = butter(10, fc*2/fs, "low");
-modulated_re = amdemod(received_signal, fc, fs, 0, 0, num, dem);
-modulated_im = amdemod(received_signal, fc, fs, pi/2,0, num, dem);
+% [num, dem] = butter(10, fc*2/fs, "low");
+modulated_re = received_signal_re; % amdemod(received_signal, fc, fs, 0, 0, num, dem);
+modulated_im = received_signal_im; % amdemod(received_signal, fc, fs, pi/2,0, num, dem);
 
 re_filtered = modulated_re;
 im_filtered = modulated_im;
@@ -30,9 +30,9 @@ im_filtered = modulated_im;
 % figure();
 % plot(1:length(received_signal), received_signal);
 % legend('received_signal rx');
-figure();
-plot(1:length(modulated_re), modulated_re);
-legend('re modulated rx');
+% figure();
+% plot(1:length(modulated_re), modulated_re);
+% legend('re modulated rx');
 
 % figure();
 % plot(1:length(modulated_re), modulated_re);

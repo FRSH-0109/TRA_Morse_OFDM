@@ -33,16 +33,23 @@ disp(y_binary_Morse)
 % stairs(y_binary_Morse)
 % ylim([-0.5, 1.5])
 
-ofdm_signal = OFDM_Transmitter(y_binary_Morse, 8, 1, 1e4);
+[ofdm_signal_re, ofdm_signal_im] = OFDM_Transmitter(y_binary_Morse, 8, 1, 1e4);
 
 % figure;
 % plot(1:length(ofdm_signal), ofdm_signal);
 
-received_binary = OFDM_Receiver(ofdm_signal, 8, 1, 1e4);
+received_binary = OFDM_Receiver(ofdm_signal_re, ofdm_signal_im, 8, 1, 1e4);
+binary_cutted = received_binary(1:length(y_binary_Morse));
+binary_cutted(4) = 0;
+binary_cutted(12) = 0;
 %disp(y_binary_Morse)
 %disp(received_binary)
-text_out = binaryMorseToText(received_binary);
+text_out = binaryMorseToText(binary_cutted);
 disp(text_out);
+bit_mistake_count = calculate_wrong_signs(binary_cutted, y_binary_Morse);
+disp(bit_mistake_count);
+letter_mistake_count = calculate_wrong_signs(upper(text_out), upper(text));
+disp(letter_mistake_count);
 % Dodanie zakłócenia
 
 % wrzucenie do Receivera

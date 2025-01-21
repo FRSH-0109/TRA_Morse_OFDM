@@ -1,16 +1,20 @@
-function received_binary = OFDM_Receiver(received_signal, n, A, fc)
+function received_binary = OFDM_Receiver(received_signal_re, received_signal_im, n, A, fc)
 %OFDM_RECEIVER Function reprezents the OFDM modulation receiver
 
-re_carrier = A.*sin((2*pi*(1/fc))*(1:length(received_signal)));
-im_carrier = A.*cos((2*pi*(1/fc))*(1:length(received_signal)));
+% re_carrier = A.*sin((2*pi*(1/fc))*(1:length(received_signal)));
+% im_carrier = A.*cos((2*pi*(1/fc))*(1:length(received_signal)));
 
-fs = 10e6; % Sampling frequency
+fs = 1e6; % Sampling frequency
 
-modulated_re = received_signal.*re_carrier;
-modulated_im = received_signal.*im_carrier;
+% modulated_re = received_signal.*re_carrier;
+% modulated_im = received_signal.*im_carrier;
 
-modulated_re = amdemod(received_signal, fc, fs);
-modulated_im = amdemod(received_signal, fc, fs, pi/2);
+% [num, dem] = butter(10, fc*2/fs, "low");
+modulated_re =  % amdemod(received_signal, fc, fs, 0, 0, num, dem);
+modulated_im =  % amdemod(received_signal, fc, fs, pi/2,0, num, dem);
+
+re_filtered = modulated_re;
+im_filtered = modulated_im;
 
 % Low-pass filter to remove double-frequency components
 % Use MATLAB's built-in lowpass function
@@ -26,7 +30,6 @@ modulated_im = amdemod(received_signal, fc, fs, pi/2);
 % figure();
 % plot(1:length(received_signal), received_signal);
 % legend('received_signal rx');
-% 
 % figure();
 % plot(1:length(modulated_re), modulated_re);
 % legend('re modulated rx');
@@ -45,18 +48,18 @@ modulated_im = amdemod(received_signal, fc, fs, pi/2);
 
 % Parametry
 order = 10; % do sprawk - 50, 100, 800
-Wn = 0.8; % do sprawka - 0.025, 0.03, 0.0275
+Wn = 0.5; % do sprawka - 0.025, 0.03, 0.0275
 
 % Zaprojektowanie filtru
-b = fir1(order, Wn, 'low');
+% b = fir1(order, Wn, 'low');
 % 
 % % Wyświetlanie wyników
 % 
 % figure(5);
 % freqz(b, 1, 1000);
 % 
-re_filtered = filter(b, 1, modulated_re);
-im_filtered = filter(b, 1, modulated_im);
+% re_filtered = filter(b, 1, modulated_re);
+% im_filtered = filter(b, 1, modulated_im);
 
 % re_filtered = lowpass(modulated_re, 100, 1000);
 % im_filtered = lowpass(modulated_im, 100, 1000);
