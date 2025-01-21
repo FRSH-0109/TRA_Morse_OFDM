@@ -1,5 +1,5 @@
 function [outputMorse] = textToBinaryMorse(text)
-    % Definicja słownika Morse'a z rozszerzonymi znakami specjalnymi
+    % Definicja alfabetu Morse'a, dodatkwo ze znakami specjalnymi
     morseCode = containers.Map( ...
         {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', ...
          'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ...
@@ -10,25 +10,28 @@ function [outputMorse] = textToBinaryMorse(text)
          '-----', '.----', '..---', '...--', '....-', '.....', '-....', '--...', '---..', '----.', ...
          '.-.-.-', '--..--', '..--..', '-.-.--', '---...', '-.-.-.', '-.--.', '-.--.-', '.-...', '-...-', '.-.-.', '-....-', '..--.-', '.-..-.', '...-..-', '.--.-.'});
     
-    % Dodanie spacji jako 0000000 między słowami
-    spaceCode = '0000'; % tylko 4 zera po 3 są już stawiane po literze
+    % Spacjia jako 0000000 między słowami, tylko 4 zera bo 3 są już stawiane po literze
+    spaceCode = '0000';
 
     % Zamiana tekstu na wielkie litery
     text = upper(text);
     
-    % Tworzenie sygnału Morse'a jako tablicy binarnej
+    % Tworzenie wyjściowego sygnału Morse'a jako tablicy binarnej
     outputMorse = [];
     for i = 1:length(text)
         if text(i) == ' ' % Spacja między słowami
             % Dodaj odstęp między słowami
             outputMorse = [outputMorse, str2num(spaceCode')']; % Zamiana na binarną reprezentację
+            if(i == 1)  %jeśli to pierwszy znak to dodaj do spacji  0 0 0
+                outputMorse = [outputMorse, 0, 0, 0]; % Zamiana na binarną reprezentację
+            end
         elseif isKey(morseCode, text(i))
             % Zamień znak na kod Morse'a
             morseSymbol = morseCode(text(i)); % Pobranie kodu Morse'a
             binarySymbol = morseToBinary(morseSymbol); % Zamiana na binarną tablicę
             outputMorse = [outputMorse, binarySymbol, 0, 0, 0]; % Dodanie odstępu między literami
         else
-            %warning('Znak "%s" nie został znaleziony w mapie Morse`a.', text(i));
+            warning('Znak "%s" nie został znaleziony w mapie Morse`a.', text(i));
         end
     end
     
@@ -48,7 +51,7 @@ function binaryOutput = morseToBinary(morseSymbol)
         elseif morseSymbol(i) == '-'
             binaryOutput = [binaryOutput, 1, 1, 1];
         end
-        % Dodaj odstęp (0) między elementami wewnątrz litery
+        % Dodaj odstęp '0' między elementami wewnątrz jednej litery
         if i < length(morseSymbol)
             binaryOutput = [binaryOutput, 0];
         end

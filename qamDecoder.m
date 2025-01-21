@@ -3,15 +3,17 @@ function [output_array] = qamDecoder(baskets_matrix)
 %output_array - wyjsciowy ciag binarny
 idx = 1;
 
-corners = [1+1i, -1+1i, -1-1i, 1-1i];
+corners = [1+1i, -1+1i, -1-1i, 1-1i]; 
+% narozniki kwadratu jednostkowego w przestrzeni zespolonej
 
 for w=1:width(baskets_matrix)
     for h=1:height(baskets_matrix)
-        z = baskets_matrix(h, w);
-        distances = abs(z - corners);
-        [~, closest_index] = min(distances); % Find the index of the minimum distance
-        closest_corner = corners(closest_index); % Determine the closest corner
-
+        z = baskets_matrix(h, w); % zapis liczby zespolonej
+        distances = abs(z - corners);   % obliczenia ogleglosci do kazdego naroznika
+        [~, closest_index] = min(distances); % Wyznaczenie indeksu dla najblizszego naroznika
+        closest_corner = corners(closest_index); % Zapis najblizszego naroznika
+        
+        % Przypisanie wartosci binarnej dla dwoch kolejnych bitow
         if closest_corner == (1 + 1i)
             binary_i = 1;
             binary_ii = 1;

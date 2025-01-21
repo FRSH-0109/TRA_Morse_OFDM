@@ -1,24 +1,24 @@
 function [basket] = qamCoder(input_array, n)
 %input array -  ciąg bitów do kodowania
 %n -  ilosc koszykow wyjscowych
-%basket - macierz dla ktorej w pionie sa kolejne koszyki, w poziomie ich
-%zespolony wektor
+%basket - macierz dla ktorej w pionie sa kolejne koszyki, w poziomie ich zespolony wektor
 nTmp = 1;
 basket = [];
 basketIdx = 1;
 for i=1:2:length(input_array)
     
-    if(nTmp > n)
+    if(nTmp > n) % reset indesku w koszyku i inkrement indeksu koszyka
         nTmp = 1;
         basketIdx = basketIdx + 1;
     end
     
-    q = input_array(i);
+    q = input_array(i); %zapis dwoch kolejnych bitow
     qq = 0;
     if(i+1 <= length(input_array))
         qq =input_array(i+1);
     end
-
+       
+    %przypisanaie wartosci zespolonej dla zapisanych dwoch bitow
     if(q == 1 && qq == 1)
         basket(nTmp, basketIdx) = 1 + 1i;
     elseif (q == 1 && qq == 0)
