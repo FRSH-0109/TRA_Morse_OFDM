@@ -1,6 +1,7 @@
 clear;
 clc;
 
+% Wiadomość do przekazania
 text = 'Aasdsa Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia.';
 % text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 % OFFTOP
@@ -12,24 +13,35 @@ y_binary_Morse = textToBinaryMorse(text);
 disp(y_binary_Morse)
 
 % Modulacja OFDM sygnału binarnego
-[ofdm_signal_re, ofdm_signal_im] = OFDM_Transmitter(y_binary_Morse, 8, 1, 1e4);
+[ofdm_signal_re, ofdm_signal_im] = OFDM_Transmitter(y_binary_Morse, 8);
 
 % Dodanie zakłócenia
+ofdm_signal = complex(ofdm_signal_re, ofdm_signal_im);
+ofdm_signal_noise = awgn(ofdm_signal, 0, "measured");
+signal_noise_re = real(ofdm_signal_noise);
+signal_noise_im = imag(ofdm_signal_noise);
 
-% wrzucenie do Receivera
-received_binary = OFDM_Receiver(ofdm_signal_re, ofdm_signal_im, 8, 1, 1e4);
+% Przekazanie sygnału do Receivera
+received_binary = OFDM_Receiver(signal_noise_re, signal_noise_im, 8);
 binary_cutted = received_binary(1:length(y_binary_Morse));
 
 % Sztucznie dodane zmiany dla testu calculate_wrong_signs()
-binary_cutted(4) = 0;
-binary_cutted(12) = 0;
+% binary_cutted(4) = 0;
+% binary_cutted(12) = 0;
 
 % dekodowanie an tekst
 text_out = binaryMorseToText(binary_cutted);
 disp(text_out);
 
+% Wyniki eksperymentu
 bit_mistake_count = calculate_wrong_signs(binary_cutted, y_binary_Morse);
+disp("Wrong bits found:");
 disp(bit_mistake_count);
 
+bit_error_probability = round(bit_mistake_count / length(y_binary_Morse), 3);
+disp("Bit error probability is:")
+disp(bit_error_probability);
+
 letter_mistake_count = calculate_wrong_signs(upper(text_out), upper(text));
+disp("Wrong symbols decoded:");
 disp(letter_mistake_count);
