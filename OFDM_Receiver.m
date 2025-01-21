@@ -1,4 +1,4 @@
-function received_binary = OFDM_Receiver(received_signal_re, received_signal_im, n)
+function [received_binary_1, received_binary_2] = OFDM_Receiver(received_signal_re, received_signal_im, n)
 %OFDM_RECEIVER Function reprezents the OFDM modulation receiver
 
 % Złożenie sygnału z toru rzeczywistego i urojonego
@@ -13,5 +13,8 @@ fft_bins = fft(signal_framed, n, 1);
 
 % Dekodowanie znaków QAM na kod binarny
 received_binary = qamDecoder(fft_bins);
+
+received_binary_1 = received_binary(1:2:length(received_binary)-1);
+received_binary_2 = received_binary(2:2:length(received_binary));
 end
 
